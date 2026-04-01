@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Login</title>
+</head>
+<body>
+<h2>Login</h2>
+<form action="/auth/login-form" method="post">
+    <label>Email:</label><br>
+    <input type="email" name="email" required><br>
+    <label>Password:</label><br>
+    <input type="password" name="password" required><br>
+    <button type="submit">Login</button>
+</form>
+<h2>Or continue with</h2>
+<a href="/oauth2/authorization/google">Google</a><br>
+<a href="/oauth2/authorization/github">GitHub</a>
+<div style="color:red;">
+    <script>
+        const params = new URLSearchParams(window.location.search);
+        const error = params.get('error');
+
+        if (error === 'invalid_credentials_register') {
+            document.write("Invalid email or password. You can register here: <a href='/students/register.html'>Register</a>");
+        } else if (error === 'no_account_register') {
+            document.write("No account found. Please register first: <a href='/students/register.html'>Register</a>");
+        } else if (error === 'not_registered') {
+            document.write("OAuth2 account not registered. Please register first: <a href='/students/register.html'>Register</a>");
+        } else if (error === 'oauth_failure') {
+            document.write("OAuth2 login failed. Please try again.");
+        } else if (error === 'unknown') {
+            document.write("Something went wrong. Please try again.");
+        }
+    </script>
+</div>
